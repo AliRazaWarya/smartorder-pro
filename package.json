@@ -1,0 +1,23 @@
+{
+  "name": "smartorder-pro",
+  "version": "1.0.0",
+  "description": "SmartOrder PRO - Wholesale Order Booking, Auto-Calculation & WhatsApp Billing for Distributors and Order Bookers",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000 .",
+    "cap:init": "npx cap init \"SmartOrder PRO\" com.smartorder.app --web-dir .",
+    "cap:add-android": "npx cap add android",
+    "cap:open-android": "npx cap open android"
+  },
+  "keywords": [
+    "order-booking",
+    "sales-booker",
+    "whatsapp-billing",
+    "wholesale",
+    "distributor",
+    "pwa",
+    "invoice-generator"
+  ],
+  "author": "SmartOrder PRO",
+  "license": "MIT"
+}
