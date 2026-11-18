@@ -45,6 +45,8 @@ tailwind.config = {
   --in: #f8fafc;
   --pr: #047857;
   --pr2: #d1fae5;
+  --hdr-bg: linear-gradient(135deg, #065f46 0%, #0f766e 100%);
+  --slip-hdr: #047857;
   --slip-bg: #ffffff;
   --slip-tx: #0f172a;
   --slip-bd: #e2e8f0;
@@ -233,7 +235,7 @@ body {
 <body class="min-h-screen flex flex-col pb-16 lg:pb-8">
 
 <!-- App Header -->
-<header class="sticky top-0 z-40 text-white shadow-md transition-all" style="background: linear-gradient(135deg, #065f46 0%, #0f766e 100%);">
+<header id="appHeader" class="sticky top-0 z-40 text-white shadow-md transition-all" style="background: var(--hdr-bg);">
   <div class="max-w-7xl mx-auto px-4 py-2.5 sm:py-3 flex items-center justify-between gap-3">
     
     <!-- Brand Info -->
@@ -253,6 +255,36 @@ body {
     <!-- Quick Actions & Settings -->
     <div class="flex items-center gap-1.5 sm:gap-2">
       
+      <!-- Color Palette Picker (5-6 Professional Theme Colors) -->
+      <div class="relative">
+        <button onclick="toggleColorPalette()" class="p-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs flex items-center gap-1" title="Change Theme Colors">
+          <span>🎨</span>
+        </button>
+        <div id="paletteDropdown" class="absolute right-0 mt-2 w-52 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-2.5 hidden z-50">
+          <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Theme Color Palette</div>
+          <div class="grid grid-cols-2 gap-1.5 text-xs">
+            <button type="button" onclick="setColorTheme('emerald')" class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-left font-medium">
+              <span class="w-4 h-4 rounded-full bg-emerald-600 inline-block shadow-sm"></span> <span>Emerald</span>
+            </button>
+            <button type="button" onclick="setColorTheme('sapphire')" class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-left font-medium">
+              <span class="w-4 h-4 rounded-full bg-blue-600 inline-block shadow-sm"></span> <span>Sapphire</span>
+            </button>
+            <button type="button" onclick="setColorTheme('purple')" class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-left font-medium">
+              <span class="w-4 h-4 rounded-full bg-purple-600 inline-block shadow-sm"></span> <span>Violet</span>
+            </button>
+            <button type="button" onclick="setColorTheme('ruby')" class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-left font-medium">
+              <span class="w-4 h-4 rounded-full bg-rose-600 inline-block shadow-sm"></span> <span>Ruby</span>
+            </button>
+            <button type="button" onclick="setColorTheme('amber')" class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-left font-medium">
+              <span class="w-4 h-4 rounded-full bg-amber-600 inline-block shadow-sm"></span> <span>Mandi Gold</span>
+            </button>
+            <button type="button" onclick="setColorTheme('slate')" class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-left font-medium">
+              <span class="w-4 h-4 rounded-full bg-slate-700 inline-block shadow-sm"></span> <span>Titanium</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Language Dropdown -->
       <div class="relative">
         <select id="langSelect" onchange="changeLang(this.value)" class="bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-semibold rounded-xl px-2.5 py-1.5 outline-none cursor-pointer">
@@ -555,7 +587,7 @@ body {
     <div id="slip" class="slip transition-all">
       
       <!-- Slip Header -->
-      <div style="background:#047857" class="header-bg text-white text-center px-5 py-4">
+      <div id="slipHeader" style="background: var(--slip-hdr);" class="header-bg text-white text-center px-5 py-4 transition-colors">
         <div class="text-[10px] font-bold uppercase tracking-widest bg-white/20 inline-block px-3 py-0.5 rounded-full mb-1">
           DIGITAL SALES ORDER SLIP
         </div>
@@ -653,7 +685,7 @@ body {
 
       <!-- Slip Footer -->
       <div class="bg-slate-900 text-slate-300 text-center text-[10px] py-2 tracking-wide font-medium">
-        Thank you for your business! • Generated via SmartOrder Pro
+        Thank you for your business! • Developed by Engr Fiaz Hussain Warya
       </div>
 
     </div>
@@ -674,6 +706,12 @@ body {
 
   </div>
 </main>
+
+<!-- Application Footer -->
+<footer class="mt-auto py-5 text-center text-xs text-slate-500 border-t border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40">
+  <p class="font-bold text-slate-700 dark:text-slate-300 text-sm">SmartOrder PRO — Sales Booker & Auto-Billing System</p>
+  <p class="text-xs mt-1 font-semibold text-emerald-600 dark:text-emerald-400">Developed by Engr Fiaz Hussain Warya</p>
+</footer>
 
 <!-- Saved Orders History Modal -->
 <div id="hm" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
@@ -968,6 +1006,85 @@ function toggleTheme() {
   document.documentElement.setAttribute('data-theme', next);
   $('themeIcon').textContent = next === 'dark' ? '☀️' : '🌙';
   ls.set('so_theme', next);
+}
+
+// 6 Professional Color Theme Combinations
+const colorPalettes = {
+  emerald: {
+    name: 'Emerald Green',
+    pr: '#047857',
+    pr2: '#d1fae5',
+    hdr: 'linear-gradient(135deg, #065f46 0%, #0f766e 100%)',
+    slipHdr: '#047857'
+  },
+  sapphire: {
+    name: 'Sapphire Blue',
+    pr: '#1d4ed8',
+    pr2: '#dbeafe',
+    hdr: 'linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%)',
+    slipHdr: '#1d4ed8'
+  },
+  purple: {
+    name: 'Midnight Violet',
+    pr: '#6d28d9',
+    pr2: '#ede9fe',
+    hdr: 'linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%)',
+    slipHdr: '#6d28d9'
+  },
+  ruby: {
+    name: 'Ruby Crimson',
+    pr: '#be123c',
+    pr2: '#ffe4e6',
+    hdr: 'linear-gradient(135deg, #881337 0%, #e11d48 100%)',
+    slipHdr: '#be123c'
+  },
+  amber: {
+    name: 'Mandi Gold',
+    pr: '#b45309',
+    pr2: '#fef3c7',
+    hdr: 'linear-gradient(135deg, #78350f 0%, #d97706 100%)',
+    slipHdr: '#b45309'
+  },
+  slate: {
+    name: 'Titanium Slate',
+    pr: '#334155',
+    pr2: '#e2e8f0',
+    hdr: 'linear-gradient(135deg, #0f172a 0%, #334155 100%)',
+    slipHdr: '#1e293b'
+  }
+};
+
+function toggleColorPalette() {
+  const d = $('paletteDropdown');
+  if (d) d.classList.toggle('hidden');
+}
+
+// Close dropdown on outside click
+document.addEventListener('click', (e) => {
+  const d = $('paletteDropdown');
+  if (d && !d.classList.contains('hidden')) {
+    if (!d.contains(e.target) && !e.target.closest('[onclick="toggleColorPalette()"]')) {
+      d.classList.add('hidden');
+    }
+  }
+});
+
+function setColorTheme(themeName) {
+  const p = colorPalettes[themeName] || colorPalettes.emerald;
+  document.documentElement.style.setProperty('--pr', p.pr);
+  document.documentElement.style.setProperty('--pr2', p.pr2);
+  document.documentElement.style.setProperty('--hdr-bg', p.hdr);
+  document.documentElement.style.setProperty('--slip-hdr', p.slipHdr);
+
+  const appHdr = $('appHeader');
+  if (appHdr) appHdr.style.background = p.hdr;
+  const slipHdr = $('slipHeader');
+  if (slipHdr) slipHdr.style.background = p.slipHdr;
+
+  ls.set('so_color_palette', themeName);
+  const d = $('paletteDropdown');
+  if (d) d.classList.add('hidden');
+  toast(`Color theme set to ${p.name}!`, '🎨');
 }
 
 function switchMobileTab(tab) {
@@ -1543,6 +1660,10 @@ function restoreBackupJSON(e) {
   const savedLang = ls.get('so_lang') || 'en';
   $('langSelect').value = savedLang;
   if (savedLang !== 'en') changeLang(savedLang);
+
+  // Load Saved Color Palette
+  const savedPalette = ls.get('so_color_palette') || 'emerald';
+  setColorTheme(savedPalette);
 
   renderTbl();
   sync();
